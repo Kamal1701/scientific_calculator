@@ -16,25 +16,21 @@
             <div class="col-12 col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <input
-                        id="class-output-display" 
-                        readonly 
-                        class="form-control form-control-lg" 
-                        type="text" 
-                        aria-label=".form-control-lg example">
+                        <input id="display-output" readonly class="form-control form-control-lg text-end" type="text"
+                            aria-label=".form-control-lg example">
 
                         <div class="row gx-1">
                             <!-- Row 1 -->
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">(</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">)</button>
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">%</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">AC</button>
@@ -43,14 +39,14 @@
                             <!-- Row 2 -->
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">7</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">8</button>
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">9</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">÷</button>
@@ -60,14 +56,14 @@
 
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">4</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">5</button>
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">6</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">×</button>
@@ -76,14 +72,14 @@
                             <!-- Row 4 -->
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">1</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">2</button>
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">3</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">-</button>
@@ -92,14 +88,15 @@
                             <!-- Row 5 -->
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">0</button>
-                                
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">.</button>
                             </div>
                             <div class="col-3">
-                                <button type="button" class="btn btn-primary w-100 mt-3 border border-primary">=</button>
-                                
+                                <button type="button"
+                                    class="btn btn-primary w-100 mt-3 border border-primary">=</button>
+
                             </div>
                             <div class="col-3">
                                 <button type="button" class="btn btn-light w-100 mt-3 border">+</button>
@@ -114,6 +111,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const display = document.getElementById("display-output");
+            const buttons = document.getElementsByClassName("btn");
+
+            function evaluate(){
+                if(currentValue != ''){
+                const convertedValue = currentValue
+                .replace("×","*")
+                .replace("÷","/")
+                .replace("%", "*0.01");
+                const result = eval(convertedValue);
+                currentValue = result.toString();
+                display.value = currentValue;
+                }
+            }
+
+            let currentValue = "";
+            for (let i = 0; i < buttons.length; i++) {
+                const button = buttons[i];
+                button.addEventListener("click", function () {
+                    const value = button.innerText;
+                    if(value === "AC"){
+                        currentValue = "";
+                        display.value = "";
+                    } else if(value == "="){
+                        evaluate();
+                    }                     
+                    else{
+                        currentValue += value;
+                    display.value = currentValue;
+                    }
+                    
+                });
+            }
+        });            
+    </script>
 
 </body>
 
